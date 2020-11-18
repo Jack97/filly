@@ -5,8 +5,11 @@ namespace App\Model;
 class Image
 {
     protected int $id;
-
     protected string $fileName;
+    protected int $width;
+    protected int $height;
+    protected int $focalPointX;
+    protected int $focalPointY;
 
     public function getId(): int
     {
@@ -34,29 +37,49 @@ class Image
 
     public function getWidth(): int
     {
-        // Todo
+        return $this->width;
+    }
 
-        return 500;
+    public function setWidth(int $width): self
+    {
+        $this->width = $width;
+
+        return $this;
     }
 
     public function getHeight(): int
     {
-        // Todo
+        return $this->height;
+    }
 
-        return 375;
+    public function setHeight(int $height): self
+    {
+        $this->height = $height;
+
+        return $this;
     }
 
     public function getFocalPointX(): int
     {
-        // Todo
+        return $this->focalPointX;
+    }
 
-        return 0;
+    public function setFocalPointX(int $x): self
+    {
+        $this->focalPointX = $x;
+
+        return $this;
     }
 
     public function getFocalPointY(): int
     {
-        // Todo
+        return $this->focalPointY;
+    }
 
-        return 0;
+    public function setFocalPointY(int $y): self
+    {
+        $this->focalPointY = $y;
+
+        return $this;
     }
 }

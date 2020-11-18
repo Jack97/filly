@@ -19,7 +19,10 @@ class DoctrineImageRepository implements ImageRepository
     {
         $query = $this->database
             ->createQueryBuilder()
-            ->select(['id', 'file_name'])
+            ->select([
+                'id', 'file_name', 'width', 'height',
+                'focal_point_x', 'focal_point_y',
+            ])
             ->from('images')
             ->orderBy('rand()');
 
@@ -29,6 +32,10 @@ class DoctrineImageRepository implements ImageRepository
 
         $image->setId($data['id']);
         $image->setFileName($data['file_name']);
+        $image->setWidth((int) $data['width']);
+        $image->setHeight((int) $data['height']);
+        $image->setFocalPointX((int) $data['focal_point_x']);
+        $image->setFocalPointY((int) $data['focal_point_y']);
 
         return $image;
     }
