@@ -1,7 +1,31 @@
 version: '3.8'
-services:
-  nginx:
-    # Todo
 
-  php:
-    # Todo
+services:
+  varnish:
+    build: docker/varnish
+    ports:
+      - 8080:80
+    depends_on:
+      - nginx
+
+  nginx:
+    build: docker/nginx
+    volumes:
+      - app:/var/www/html
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build:
+      dockerfile: docker/php-fpm/Dockerfile
+      context: .
+    volumes:
+      - app:/var/www/html
+
+volumes:
+  app:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: :/System/Volumes/Data/${PWD}
