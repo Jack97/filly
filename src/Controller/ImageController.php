@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ImageController
 {
+    const MAX_WIDTH = 2000;
+    const MAX_HEIGHT = 2000;
+
     protected ImageRepository $imageRepository;
     protected ImageManipulator $imageManipulator;
 
@@ -21,14 +24,20 @@ class ImageController
 
     public function show(int $width, int $height): Response
     {
-        if ($width <= 0 || $height <= 0 || $width > 2000 || $height > 2000) {
+        if (
+            $width <= 0 ||
+            $height <= 0 ||
+            $width > self::MAX_WIDTH ||
+            $height > self::MAX_HEIGHT
+        ) {
             return new Response('Invalid image size.', 400);
         }
 
-        // Todo: Get best matching image. Closest aspect ratio, and closest in size...
-
         $image = $this->imageRepository->getRandom($width, $height);
 
-        return $this->imageManipulator->getResizeResponse($image, $width, $height);
+        return $this->imageManipulator
+            ->getResizeResponse($image, $width, $height)
+            ->setPublic()
+            ->setMaxAge(86400);
     }
 }
