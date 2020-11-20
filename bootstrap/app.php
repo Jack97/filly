@@ -13,7 +13,7 @@ $app = new Application();
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__ . '/templates',
+    'twig.path' => __DIR__ . '/../views',
 ));
 
 $app['flysystem'] = function () use ($app) {
@@ -21,7 +21,9 @@ $app['flysystem'] = function () use ($app) {
 };
 
 $app['intervention.image'] = function () use ($app) {
-    return new ImageManager($app['intervention.image.options']);
+    return new ImageManager([
+        'driver' => $app['intervention.image.driver'],
+    ]);
 };
 
 $app['image.repository'] = function () use ($app) {

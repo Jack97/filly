@@ -6,7 +6,7 @@ use Doctrine\Migrations\DependencyFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$app = require __DIR__ . '/../app.php';
+$app = require __DIR__ . '/../bootstrap/app.php';
 require __DIR__ . '/dev.php';
 
 return DependencyFactory::fromConnection(
