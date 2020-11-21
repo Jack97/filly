@@ -20,9 +20,9 @@ $app['flysystem'] = function () use ($app) {
     return new Filesystem($app['flysystem.adapter']);
 };
 
-$app['intervention.image'] = function () use ($app) {
+$app['image.manager'] = function () use ($app) {
     return new ImageManager([
-        'driver' => $app['intervention.image.driver'],
+        'driver' => $app['image.manager.driver'],
     ]);
 };
 
@@ -32,7 +32,7 @@ $app['image.repository'] = function () use ($app) {
 
 $app['image.manipulator'] = function () use ($app) {
     return new ImageManipulator(
-        $app['flysystem'], $app['intervention.image']
+        $app['flysystem'], $app['image.manager']
     );
 };
 

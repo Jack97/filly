@@ -13,4 +13,4 @@ $app['flysystem.adapter'] = function () {
     return new LocalFilesystemAdapter(__DIR__ . '/../images');
 };
 
-$app['intervention.image.driver'] = 'gd';
+$app['image.manager.driver'] = 'gd';
