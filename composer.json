@@ -5,6 +5,7 @@
         "intervention/image": "^2.5",
         "league/flysystem": "^2.0.0-RC1",
         "silex/silex": "^2.3",
+        "symfony/console": "^5.1",
         "symfony/twig-bridge": "^3.0"
     },
     "autoload": {
