@@ -24,8 +24,8 @@ class ImageManipulator
     {
         $scale = min($image->getWidth() / $width, $image->getHeight() / $height);
 
-        $cropWidth = (int) ($width * $scale);
-        $cropHeight = (int) ($height * $scale);
+        $cropWidth = max(1, (int) round($width * $scale));
+        $cropHeight = max(1, (int) round($height * $scale));
 
         $cropX = $image->getFocalPointX() - (int) ceil($cropWidth / 2);
 
