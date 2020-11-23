@@ -10,7 +10,7 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $app = require __DIR__ . '/../bootstrap/app.php';
 
-        require __DIR__ . '/../config/dev.php';
+        require __DIR__ . '/../config/test.php';
 
         return $app;
     }
