@@ -8,8 +8,8 @@ class Image
     protected string $fileName;
     protected int $width;
     protected int $height;
-    protected int $focalPointX;
-    protected int $focalPointY;
+    protected int $focalPointX = 0;
+    protected int $focalPointY = 0;
 
     public function getId(): int
     {

@@ -9,15 +9,23 @@ use Mockery;
 
 class ImageControllerTest extends WebTestCase
 {
-    /** @test */
-    public function it_will_return_an_image_with_the_given_dimensions()
+    /**
+     * @param int $width
+     * @param int $height
+     *
+     * @test
+     * @dataProvider dimensionsProvider
+     */
+    public function it_will_return_an_image_with_the_given_dimensions(int $width, int $height)
     {
-        $width = 10;
-        $height = 10;
-
-        $image = $this->makeImage();
-
         $imageRepository = Mockery::mock(ImageRepository::class);
+
+        $image = new Image();
+
+        $image->setFileName('image.jpg');
+        $image->setWidth(21);
+        $image->setHeight(21);
+
         $imageRepository->shouldReceive('getRandom')->once()->andReturn($image);
 
         $this->app['image.repository'] = $imageRepository;
@@ -59,26 +67,26 @@ class ImageControllerTest extends WebTestCase
     /**
      * @return int[][]
      */
-    public function invalidDimensionsProvider(): array
+    public function dimensionsProvider(): array
     {
         return [
-            [0, 10],
-            [10, 0],
-            [ImageController::MAX_WIDTH + 1, 10],
-            [10, ImageController::MAX_HEIGHT + 1],
+            [1, 1],
+            [ImageController::MAX_WIDTH, 1],
+            [1, ImageController::MAX_HEIGHT],
+            [ImageController::MAX_WIDTH, ImageController::MAX_HEIGHT],
         ];
     }
 
-    protected function makeImage()
+    /**
+     * @return int[][]
+     */
+    public function invalidDimensionsProvider(): array
     {
-        $image = new Image();
-
-        $image->setFileName('1.jpg');
-        $image->setWidth(500);
-        $image->setHeight(375);
-        $image->setFocalPointX(0);
-        $image->setFocalPointY(0);
-
-        return $image;
+        return [
+            [0, 1],
+            [1, 0],
+            [ImageController::MAX_WIDTH + 1, 1],
+            [1, ImageController::MAX_HEIGHT + 1],
+        ];
     }
 }
