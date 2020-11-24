@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.CR_PAT }}
+          password: ${{ secrets.GHCR_PAT }}
 
       - name: Build and push the Docker image
         uses: docker/build-push-action@v2
@@ -35,3 +35,20 @@ jobs:
           push: true
           tags: |
             ghcr.io/jack97/its-always-sunny-in-filly:sha-${{ github.sha }}
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Run the tests
+        run: |
+          docker run \
+            ghcr.io/jack97/its-always-sunny-in-filly:sha-${{ github.sha }} \
+            ./vendor/bin/phpunit
