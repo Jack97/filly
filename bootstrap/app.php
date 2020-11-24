@@ -12,9 +12,9 @@ $app = new Application();
 
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
+$app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__ . '/../views',
-));
+]);
 
 $app['flysystem'] = function () use ($app) {
     return new Filesystem($app['flysystem.adapter']);

@@ -1,8 +1,7 @@
 vcl 4.0;
 
 backend app {
-    .host = "nginx";
-    .port = "80";
+    .host = "web:80";
 }
 
 sub vcl_deliver {

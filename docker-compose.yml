@@ -2,25 +2,20 @@ version: '3.8'
 
 services:
   varnish:
-    build: docker/varnish
+    image: varnish:6.5
     ports:
       - 6081:80
+    volumes:
+      - ./docker/varnish/default.vcl:/etc/varnish/default.vcl
     depends_on:
-      - nginx
+      - web
 
-  nginx:
-    build: docker/nginx
+  web:
+    build:
+      dockerfile: ./docker/web/Dockerfile
+      context: .
     ports:
       - 8080:80
-    volumes:
-      - app:/var/www/html
-    depends_on:
-      - php-fpm
-
-  php-fpm:
-    build:
-      dockerfile: docker/php-fpm/Dockerfile
-      context: .
     volumes:
       - app:/var/www/html
 
