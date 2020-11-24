@@ -34,4 +34,4 @@ jobs:
           file: ./docker/web/Dockerfile
           push: true
           tags: |
-            ghcr.io/Jack97/its-always-sunny-in-filly:sha-${{ github.sha }}
+            ghcr.io/jack97/its-always-sunny-in-filly:sha-${{ github.sha }}
