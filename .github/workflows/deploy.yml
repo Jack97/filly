@@ -32,11 +32,12 @@ jobs:
         with:
           context: .
           file: ./docker/web/Dockerfile
-          tags: web
+          tags:
+            - web:latest
           cache-from: type=registry,ref=ghcr.io/jack97/its-always-sunny-in-filly:latest
           cache-to: type=inline
 
       - name: Run the tests
-        run: docker run web ./vendor/bin/phpunit --verbose
+        run: docker run web:latest ./vendor/bin/phpunit --verbose
 
       # Todo: Release the Docker image
