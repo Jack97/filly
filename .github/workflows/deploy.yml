@@ -39,7 +39,7 @@ jobs:
           context: .
           file: ./docker/app/Dockerfile
           tags: app
-          cache-from: type=registry,ref=$IMAGE:latest
+          cache-from: type=registry,ref=${{ env.IMAGE }}:latest
           cache-to: type=inline
 
       - name: Run PHPUnit tests
