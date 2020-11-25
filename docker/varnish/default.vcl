@@ -1,7 +1,7 @@
 vcl 4.0;
 
 backend app {
-    .host = "web:80";
+    .host = "app:80";
 }
 
 sub vcl_deliver {

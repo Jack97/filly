@@ -1,4 +1,4 @@
-name: Deploy the web app
+name: Test and deploy
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   docker:
-    name: Build, test, and push the Docker image
+    name: Build, test, and release the Docker image
     runs-on: ubuntu-latest
 
     steps:
@@ -32,15 +32,16 @@ jobs:
         with:
           load: true
           context: .
-          file: ./docker/web/Dockerfile
-          tags: web
+          file: ./docker/app/Dockerfile
+          tags: app
           cache-from: type=registry,ref=ghcr.io/jack97/its-always-sunny-in-filly:latest
           cache-to: type=inline
 
-      - name: Run the tests
-        run: docker run web ./vendor/bin/phpunit --verbose
+      - name: Run PHPUnit tests
+        run: docker run app ./vendor/bin/phpunit --verbose
 
-      - name: Tag and push the Docker image
+      - name: Release the Docker image
+        if: github.event_name != 'pull_request'
         run: |
-          docker tag web ghcr.io/jack97/its-always-sunny-in-filly:latest
+          docker tag app ghcr.io/jack97/its-always-sunny-in-filly:latest
           docker push ghcr.io/jack97/its-always-sunny-in-filly

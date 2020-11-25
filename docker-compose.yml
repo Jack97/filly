@@ -8,11 +8,11 @@ services:
     volumes:
       - ./docker/varnish/default.vcl:/etc/varnish/default.vcl
     depends_on:
-      - web
+      - app
 
-  web:
+  app:
     build:
-      dockerfile: ./docker/web/Dockerfile
+      dockerfile: ./docker/app/Dockerfile
       context: .
       target: base
     ports:
