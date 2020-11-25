@@ -10,7 +10,7 @@ on:
 
 jobs:
   docker:
-    name: Build, test, and release the Docker image
+    name: Build, test, and push the Docker image
     runs-on: ubuntu-latest
 
     steps:
@@ -40,4 +40,7 @@ jobs:
       - name: Run the tests
         run: docker run web ./vendor/bin/phpunit --verbose
 
-      # Todo: Release the Docker image
+      - name: Tag and push the Docker image
+        run: |
+          docker tag web ghcr.io/jack97/its-always-sunny-in-filly:latest
+          docker push ghcr.io/jack97/its-always-sunny-in-filly
