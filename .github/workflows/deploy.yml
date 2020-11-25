@@ -54,4 +54,4 @@ jobs:
         run: docker tag app gcr.io/$GCP_PROJECT_ID/$IMAGE:latest
 
       - name: Publish the Docker image
-        run: docker push gcr.io/$PROJECT_ID/$IMAGE
+        run: docker push gcr.io/$GCP_PROJECT_ID/$IMAGE
