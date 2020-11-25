@@ -1,4 +1,4 @@
-name: Build, test and deploy
+name: Build, test, and deploy
 
 on:
   push:
@@ -12,21 +12,20 @@ env:
   IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/app
 
 jobs:
-  docker:
-    name: Build, test, and release the Docker image
+  main:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Set up gcloud
+      - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Register gcloud as a Docker credential helper
+      - name: Login to Google Cloud Container Registry
         run: gcloud --quiet auth configure-docker
 
       - name: Set up Docker Buildx
@@ -38,19 +37,15 @@ jobs:
           load: true
           context: .
           file: ./docker/app/Dockerfile
-          tags: app
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
           cache-from: type=registry,ref=${{ env.IMAGE }}:latest
           cache-to: type=inline
 
       - name: Run PHPUnit tests
-        run: docker run app ./vendor/bin/phpunit --verbose
-
-      - name: Tag the Docker image with the Git SHA
-        run: docker tag app $IMAGE:$GITHUB_SHA
-
-      - name: Tag the Docker image with latest
-        if: github.event_name != 'pull_request'
-        run: docker tag app $IMAGE:latest
+        run: docker run $IMAGE ./vendor/bin/phpunit --verbose
 
       - name: Publish the Docker image
+        if: ${{ github.event_name != 'pull_request' }}
         run: docker push $IMAGE
