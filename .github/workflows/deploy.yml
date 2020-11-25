@@ -9,8 +9,7 @@ on:
       - main
 
 env:
-  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  IMAGE: app
+  IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/app
 
 jobs:
   docker:
@@ -40,18 +39,18 @@ jobs:
           context: .
           file: ./docker/app/Dockerfile
           tags: app
-          cache-from: type=registry,ref=gcr.io/$GCP_PROJECT_ID/$IMAGE:latest
+          cache-from: type=registry,ref=$IMAGE:latest
           cache-to: type=inline
 
       - name: Run PHPUnit tests
         run: docker run app ./vendor/bin/phpunit --verbose
 
       - name: Tag the Docker image with the Git SHA
-        run: docker tag app gcr.io/$GCP_PROJECT_ID/$IMAGE:$GITHUB_SHA
+        run: docker tag app $IMAGE:$GITHUB_SHA
 
       - name: Tag the Docker image with latest
         if: github.event_name != 'pull_request'
-        run: docker tag app gcr.io/$GCP_PROJECT_ID/$IMAGE:latest
+        run: docker tag app $IMAGE:latest
 
       - name: Publish the Docker image
-        run: docker push gcr.io/$GCP_PROJECT_ID/$IMAGE
+        run: docker push $IMAGE
