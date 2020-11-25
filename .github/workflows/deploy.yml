@@ -32,8 +32,7 @@ jobs:
         with:
           context: .
           file: ./docker/web/Dockerfile
-          tags:
-            - web:latest
+          tags: web:latest
           cache-from: type=registry,ref=ghcr.io/jack97/its-always-sunny-in-filly:latest
           cache-to: type=inline
 
