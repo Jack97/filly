@@ -3,10 +3,13 @@
 use League\Flysystem\Local\LocalFilesystemAdapter;
 
 $app['db.options'] = [
-    'driver' => 'pdo_mysql',
-    'host' => 'host.docker.internal',
-    'dbname' => 'filly',
-    'charset' => 'utf8',
+    'driver' => $_ENV['DB_DRIVER'] ?? 'pdo_mysql',
+    'host' => $_ENV['DB_HOST'],
+    'port' => $_ENV['DB_PORT'] ?? 3306,
+    'dbname' => $_ENV['DB_NAME'],
+    'user' => $_ENV['DB_USERNAME'],
+    'password' => $_ENV['DB_PASSWORD'],
+    'charset' => $_ENV['DB_CHARSET'] ?? 'utf8',
 ];
 
 $app['flysystem.adapter'] = function () {

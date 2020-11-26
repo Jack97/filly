@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = require __DIR__ . '/../bootstrap/app.php';
 
-$env = getenv('APP_ENV') ?: 'dev';
+$env = $_ENV['APP_ENV'] ?? 'prod';
 require __DIR__ . "/../config/{$env}.php";
 
 $app->run();

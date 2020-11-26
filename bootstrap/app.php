@@ -4,9 +4,12 @@ use App\Controller\HomeController;
 use App\Controller\ImageController;
 use App\ImageManipulator;
 use App\Repository\Adapter\DoctrineImageRepository;
+use Dotenv\Dotenv;
 use Intervention\Image\ImageManager;
 use League\Flysystem\Filesystem;
 use Silex\Application;
+
+Dotenv::createImmutable(__DIR__ . '/..')->load();
 
 $app = new Application();
 
