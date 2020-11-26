@@ -5,11 +5,11 @@ use League\Flysystem\Local\LocalFilesystemAdapter;
 $app['db.options'] = [
     'driver' => $_ENV['DB_DRIVER'] ?? 'pdo_mysql',
     'host' => $_ENV['DB_HOST'],
-    'port' => $_ENV['DB_PORT'] ?? 3306,
-    'dbname' => $_ENV['DB_NAME'],
+    'port' => (int) ($_ENV['DB_PORT'] ?? 3306),
+    'dbname' => $_ENV['DB_DATABASE'],
     'user' => $_ENV['DB_USERNAME'],
     'password' => $_ENV['DB_PASSWORD'],
-    'charset' => $_ENV['DB_CHARSET'] ?? 'utf8',
+    'charset' => $_ENV['DB_CHARSET'] ?? 'utf8mb4',
 ];
 
 $app['flysystem.adapter'] = function () {
