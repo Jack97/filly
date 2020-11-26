@@ -7,8 +7,7 @@
         "silex/silex": "^2.3",
         "symfony/browser-kit": "^4.4",
         "symfony/console": "^5.1",
-        "symfony/twig-bridge": "^3.4",
-        "vlucas/phpdotenv": "^5.2"
+        "symfony/twig-bridge": "^3.4"
     },
     "require-dev": {
         "mockery/mockery": "^1.3",
