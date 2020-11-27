@@ -38,7 +38,7 @@ class ImageManipulatorTest extends WebTestCase
         $rgb = $imageManager->make($imageContents)->pickColor($x, $y);
 
         // The pixel won't be a true black because we're reducing the quality of the original image.
-        // Therefore, we must calculate a confidence score to determine if the pixel was originally black.
+        // Therefore, we need to calculate a confidence score to estimate if the pixel was originally black.
         $this->assertGreaterThanOrEqual(0.95, $this->getBlackPixelConfidence($rgb));
     }
 
