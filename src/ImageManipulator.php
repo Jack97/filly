@@ -27,7 +27,7 @@ class ImageManipulator
         $cropWidth = max(1, (int) round($width * $scale));
         $cropHeight = max(1, (int) round($height * $scale));
 
-        $cropX = $image->getFocalPointX() - (int) ceil($cropWidth / 2);
+        $cropX = $image->getFocalPointX() - (int) ($cropWidth / 2);
 
         if ($cropX < 0) {
             $cropX = 0;
@@ -35,7 +35,7 @@ class ImageManipulator
             $cropX = $image->getWidth() - $cropWidth;
         }
 
-        $cropY = $image->getFocalPointY() - (int) ceil($cropHeight / 2);
+        $cropY = $image->getFocalPointY() - (int) ($cropHeight / 2);
 
         if ($cropY < 0) {
             $cropY = 0;

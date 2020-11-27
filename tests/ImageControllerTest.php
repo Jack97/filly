@@ -23,8 +23,8 @@ class ImageControllerTest extends WebTestCase
         $image = new Image();
 
         $image->setFileName('image.jpg');
-        $image->setWidth(21);
-        $image->setHeight(21);
+        $image->setWidth(25);
+        $image->setHeight(25);
 
         $imageRepository->shouldReceive('getRandom')->once()->andReturn($image);
 
