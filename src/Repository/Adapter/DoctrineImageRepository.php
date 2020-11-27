@@ -15,7 +15,7 @@ class DoctrineImageRepository implements ImageRepository
         $this->database = $database;
     }
 
-    public function getRandom(int $width, int $height): ?Image
+    public function getRandom(): ?Image
     {
         $query = $this->database
             ->createQueryBuilder()
