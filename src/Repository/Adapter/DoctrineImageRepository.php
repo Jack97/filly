@@ -44,7 +44,7 @@ class DoctrineImageRepository implements ImageRepository
         return $this->makeImage($data);
     }
 
-    public function getCount(): int
+    protected function getCount(): int
     {
         $query = $this->database
             ->createQueryBuilder()
