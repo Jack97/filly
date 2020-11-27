@@ -21,7 +21,6 @@ class ImageControllerTest extends WebTestCase
         $imageRepository = Mockery::mock(ImageRepository::class);
 
         $image = new Image();
-
         $image->setFileName('image.jpg');
         $image->setWidth(25);
         $image->setHeight(25);

@@ -13,7 +13,7 @@ class HomeController
         $this->twig = $twig;
     }
 
-    public function index()
+    public function index(): string
     {
         return $this->twig->render('home.twig');
     }

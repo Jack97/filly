@@ -17,17 +17,45 @@ class DoctrineImageRepository implements ImageRepository
 
     public function getRandom(): ?Image
     {
+        if (($count = $this->getCount()) < 1) {
+            return null;
+        }
+
+        $offset = rand(0, $count - 1);
+
         $query = $this->database
             ->createQueryBuilder()
             ->select([
-                'id', 'file_name', 'width', 'height',
-                'focal_point_x', 'focal_point_y',
+                'images.id',
+                'images.file_name',
+                'images.width',
+                'images.height',
+                'images.focal_point_x',
+                'images.focal_point_y',
             ])
             ->from('images')
-            ->orderBy('rand()');
+            ->setFirstResult($offset)
+            ->setMaxResults(1);
 
-        $data = $query->execute()->fetchAssociative();
+        if (($data = $query->execute()->fetchAssociative()) === false) {
+            return null;
+        }
 
+        return $this->makeImage($data);
+    }
+
+    public function getCount(): int
+    {
+        $query = $this->database
+            ->createQueryBuilder()
+            ->select('count(1)')
+            ->from('images');
+
+        return (int) $query->execute()->fetchOne();
+    }
+
+    protected function makeImage(array $data): Image
+    {
         $image = new Image();
 
         $image->setId($data['id']);

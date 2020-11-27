@@ -16,20 +16,18 @@ final class Version20201120210730 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
-        $this->addSql('
-            CREATE TABLE images (
-                id INT(11) AUTO_INCREMENT PRIMARY KEY,
-                file_name VARCHAR(255) UNIQUE NOT NULL,
-                width INT(11) NOT NULL,
-                height INT(11) NOT NULL,
-                focal_point_x INT(11) NOT NULL,
-                focal_point_y INT(11) NOT NULL
-            );
-        ');
+        $table = $schema->createTable('images');
+        $table->addColumn('id', 'integer')->setAutoincrement(true);
+        $table->addColumn('file_name', 'string')->setNotnull(true);
+        $table->addColumn('width', 'integer')->setUnsigned(true)->setNotnull(true);
+        $table->addColumn('height', 'integer')->setUnsigned(true)->setNotnull(true);
+        $table->addColumn('focal_point_x', 'integer')->setUnsigned(true)->setNotnull(true);
+        $table->addColumn('focal_point_y', 'integer')->setUnsigned(true)->setNotnull(true);
+        $table->setPrimaryKey(['id']);
     }
 
     public function down(Schema $schema) : void
     {
-        $this->addSql('DROP TABLE IF EXISTS images');
+        $schema->dropTable('images');
     }
 }
