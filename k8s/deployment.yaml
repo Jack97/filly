@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      serviceAccountName: app-service-account
+      containers:
+        - name: app
+          image: gcr.io/neat-planet-294516/app:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_ENV
+              value: prod
+            - name: DB_HOST
+              value: 127.0.0.1
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=neat-planet-294516:europe-west2:production=tcp:3306"
