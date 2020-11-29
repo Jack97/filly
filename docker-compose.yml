@@ -1,18 +1,8 @@
 version: '3.8'
 
 services:
-  varnish:
-    image: varnish:6.5
-    ports:
-      - 6081:80
-    volumes:
-      - ./docker/varnish/default.vcl:/etc/varnish/default.vcl
-    depends_on:
-      - app
-
   app:
     build:
-      dockerfile: ./docker/app/Dockerfile
       context: .
       target: base
     ports:

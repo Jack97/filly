@@ -36,7 +36,6 @@ jobs:
         with:
           load: true
           context: .
-          file: ./docker/app/Dockerfile
           tags: |
             ${{ env.IMAGE }}:latest
             ${{ env.IMAGE }}:${{ github.sha }}

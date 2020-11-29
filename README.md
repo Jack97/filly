@@ -2,6 +2,5 @@
 
 ## Todo
 * Frontend showcase website
-* Tests
 * Automated deployments
 * Add images
