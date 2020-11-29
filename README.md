@@ -2,7 +2,7 @@
 
 A simple placeholder image service built with Silex.
 
-```
+```bash
 # 256x256
 https://filly.jackrobertson.uk/256
 
@@ -17,14 +17,14 @@ https://filly.jackrobertson.uk/1024/768
 * Docker Engine 19.03.0+
 * Docker Compose
 
-If you're developing on a Mac, you'll need to [configure native NFS to work with Docker](https://sean-handley.medium.com/how-to-set-up-docker-for-mac-with-native-nfs-145151458adc).
+If you're developing on a Mac, you'll need to [configure NFS to work with Docker](https://sean-handley.medium.com/how-to-set-up-docker-for-mac-with-native-nfs-145151458adc).
 
 ### Steps
 
 1. Create a `.env` file in the project root.
 
     ```bash
-    # Navigate the the repository
+    # Navigate to the repository
     cd /path/to/repository
    
     # Create the file
@@ -42,6 +42,12 @@ If you're developing on a Mac, you'll need to [configure native NFS to work with
    
    The app will be served on port `8080`.
 
+3. Migrate the database.
+
+    ```bash
+    docker exec app bin/console migrations:migrate
+    ```
+
 ## Run the tests
 
 ```
@@ -52,3 +58,4 @@ docker-compose exec app ./vendor/bin/phpunit
 
 * Automated deployments
 * Homepage
+* Logging
