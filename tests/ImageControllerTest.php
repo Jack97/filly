@@ -9,26 +9,30 @@ use Mockery;
 
 class ImageControllerTest extends WebTestCase
 {
-    /**
-     * @param int $width
-     * @param int $height
-     *
-     * @test
-     * @dataProvider dimensionsProvider
-     */
-    public function it_will_return_an_image_with_the_given_dimensions(int $width, int $height)
+    protected function setUp()
     {
-        $imageRepository = Mockery::mock(ImageRepository::class);
+        parent::setUp();
 
         $image = new Image();
         $image->setFileName('image.jpg');
         $image->setWidth(25);
         $image->setHeight(25);
 
+        $imageRepository = Mockery::mock(ImageRepository::class);
         $imageRepository->shouldReceive('getRandom')->once()->andReturn($image);
 
         $this->app['image.repository'] = $imageRepository;
+    }
 
+    /**
+     * @param int $width
+     * @param int $height
+     *
+     * @test
+     * @dataProvider widthAndHeightProvider
+     */
+    public function it_will_return_an_image_with_the_given_width_and_height(int $width, int $height)
+    {
         $client = $this->createClient();
 
         $client->request('GET', "/{$width}/{$height}");
@@ -47,10 +51,34 @@ class ImageControllerTest extends WebTestCase
 
     /**
      * @param int $width
+     *
+     * @test
+     * @dataProvider widthProvider
+     */
+    public function it_will_return_a_square_image_when_given_only_a_width(int $width)
+    {
+        $client = $this->createClient();
+
+        $client->request('GET', "/{$width}");
+
+        $response = $client->getResponse();
+
+        $this->assertTrue($response->isOk());
+
+        $convertedImage = $this->app['image.manager']->make(
+            $response->getContent()
+        );
+
+        $this->assertEquals($width, $convertedImage->width());
+        $this->assertEquals($width, $convertedImage->height());
+    }
+
+    /**
+     * @param int $width
      * @param int $height
      *
      * @test
-     * @dataProvider invalidDimensionsProvider
+     * @dataProvider invalidWidthAndHeightProvider
      */
     public function it_will_error_if_the_given_dimensions_are_invalid(int $width, int $height)
     {
@@ -66,7 +94,7 @@ class ImageControllerTest extends WebTestCase
     /**
      * @return int[][]
      */
-    public function dimensionsProvider(): array
+    public function widthAndHeightProvider(): array
     {
         return [
             [1, 1],
@@ -79,7 +107,18 @@ class ImageControllerTest extends WebTestCase
     /**
      * @return int[][]
      */
-    public function invalidDimensionsProvider(): array
+    public function widthProvider(): array
+    {
+        return [
+            [1],
+            [ImageController::MAX_WIDTH],
+        ];
+    }
+
+    /**
+     * @return int[][]
+     */
+    public function invalidWidthAndHeightProvider(): array
     {
         return [
             [0, 1],
