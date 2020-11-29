@@ -14,7 +14,7 @@ class ImageControllerTest extends WebTestCase
         parent::setUp();
 
         $image = new Image();
-        $image->setFileName('image.jpg');
+        $image->setFileName('25x25.jpg');
         $image->setWidth(25);
         $image->setHeight(25);
 

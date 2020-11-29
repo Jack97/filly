@@ -50,7 +50,7 @@ class ImageManipulatorTest extends WebTestCase
         // Todo: Add more test cases...
 
         $image = new Image();
-        $image->setFileName('focal-point-10-10.jpg');
+        $image->setFileName('25x25-fp-10x10.jpg');
         $image->setWidth(25);
         $image->setHeight(25);
         $image->setFocalPointX(10);
