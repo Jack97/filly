@@ -49,9 +49,13 @@ $app['image.controller'] = function () use ($app) {
 $app->get('/', 'home.controller:index')
     ->bind('homepage');
 
+$app->get('/{width}', 'image.controller:show')
+    ->assert('width', '[0-9]+')
+    ->bind('image.square');
+
 $app->get('/{width}/{height}', 'image.controller:show')
     ->assert('width', '[0-9]+')
     ->assert('height', '[0-9]+')
-    ->bind('image.show');
+    ->bind('image.rectangle');
 
 return $app;

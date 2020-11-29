@@ -22,8 +22,10 @@ class ImageController
         $this->imageManipulator = $imageManipulator;
     }
 
-    public function show(int $width, int $height): Response
+    public function show(int $width, int $height = null): Response
     {
+        $height ??= $width;
+
         if (
             $width <= 0 ||
             $height <= 0 ||
@@ -33,11 +35,11 @@ class ImageController
             return new Response('Invalid image size.', 400);
         }
 
-        $image = $this->imageRepository->getRandom($width, $height);
+        $image = $this->imageRepository->getRandom();
 
         return $this->imageManipulator
             ->getResizeResponse($image, $width, $height)
             ->setPublic()
-            ->setMaxAge(86400);
+            ->setMaxAge(86400); // 1 day
     }
 }
