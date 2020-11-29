@@ -28,6 +28,6 @@ FROM base AS production
 
 COPY ./composer.* ./
 
-RUN composer install
+RUN composer install --no-ansi --no-interaction --no-progress --optimize-autoloader
 
 COPY ./ ./
