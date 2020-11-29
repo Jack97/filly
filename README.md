@@ -3,10 +3,10 @@
 A simple placeholder image service built with Silex.
 
 ```bash
-# 256x256
+# Get a 256x256 image
 https://filly.jackrobertson.uk/256
 
-# 1024x768
+# Get a 1024x768 image
 https://filly.jackrobertson.uk/1024/768
 ```
 
@@ -59,3 +59,4 @@ docker-compose exec app ./vendor/bin/phpunit
 * Automated deployments
 * Homepage
 * Logging
+* Move images to a cloud filesystem
