@@ -45,12 +45,12 @@ If you're developing on a Mac, you'll need to [configure NFS to work with Docker
 3. Migrate the database.
 
     ```bash
-    docker exec app bin/console migrations:migrate
+    docker-compose exec app bin/console migrations:migrate
     ```
 
 ## Run the tests
 
-```
+```bash
 docker-compose exec app ./vendor/bin/phpunit
 ```
 
@@ -59,3 +59,4 @@ docker-compose exec app ./vendor/bin/phpunit
 * Automated deployments
 * Homepage
 * Admin API
+* Add images guide
