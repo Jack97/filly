@@ -34,7 +34,6 @@ jobs:
       - name: Build the Docker image
         uses: docker/build-push-action@v2
         with:
-          file: ./docker/Dockerfile
           load: true
           context: .
           tags: |

@@ -2,6 +2,7 @@
 
 use Google\Cloud\Storage\StorageClient;
 use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
+use Monolog\Logger;
 
 $app['db.options'] = function () {
     return [
@@ -24,3 +25,6 @@ $app['flysystem.adapter'] = function () {
 };
 
 $app['image.manager.driver'] = fn() => 'gd';
+
+$app['monolog.logfile'] = fn() => $_ENV['ERROR_LOG_PATH'];
+$app['monolog.level'] = fn() => Logger::ERROR;

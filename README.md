@@ -58,5 +58,4 @@ docker-compose exec app ./vendor/bin/phpunit
 
 * Automated deployments
 * Homepage
-* Logging
 * Move images to a cloud filesystem
