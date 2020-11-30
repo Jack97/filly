@@ -48,6 +48,8 @@ spec:
                   key: password
             - name: GOOGLE_CLOUD_STORAGE_BUCKET
               value: filly
+            - name: ERROR_LOG_PATH
+              value: php://stderr
         - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.17
           command:
