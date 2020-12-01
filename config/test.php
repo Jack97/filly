@@ -12,5 +12,3 @@ $app['db.options'] = [
 $app['filesystem.adapter'] = function () {
     return new LocalFilesystemAdapter(__DIR__ . '/../tests/images');
 };
-
-unset($app['exception_handler']);
