@@ -17,8 +17,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__ . '/../views',
 ]);
 
-$app['flysystem'] = function () use ($app) {
-    return new Filesystem($app['flysystem.adapter']);
+$app['filesystem'] = function () use ($app) {
+    return new Filesystem($app['filesystem.adapter']);
 };
 
 $app['image.manager'] = function () use ($app) {
@@ -33,7 +33,7 @@ $app['image.repository'] = function () use ($app) {
 
 $app['image.manipulator'] = function () use ($app) {
     return new ImageManipulator(
-        $app['flysystem'], $app['image.manager']
+        $app['filesystem'], $app['image.manager']
     );
 };
 

@@ -20,12 +20,10 @@ class ImageManipulatorTest extends WebTestCase
         array $resizeDimensions,
         array $expectedBlackPixelCoordinates
     ) {
+        $filesystem = $this->app['filesystem'];
         $imageManager = $this->app['image.manager'];
 
-        $imageManipulator = new ImageManipulator(
-            $this->app['flysystem'],
-            $imageManager
-        );
+        $imageManipulator = new ImageManipulator($filesystem, $imageManager);
 
         [ $width, $height ] = $resizeDimensions;
 

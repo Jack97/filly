@@ -9,7 +9,7 @@ $app['db.options'] = [
     'memory' => true,
 ];
 
-$app['flysystem.adapter'] = function () {
+$app['filesystem.adapter'] = function () {
     return new LocalFilesystemAdapter(__DIR__ . '/../tests/images');
 };
 
