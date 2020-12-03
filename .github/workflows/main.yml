@@ -1,4 +1,4 @@
-name: Build, test, and deploy
+name: Build, test, and release app
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           load: true
-          context: .
+          context: ./app
           tags: |
             ${{ env.IMAGE }}:latest
             ${{ env.IMAGE }}:${{ github.sha }}

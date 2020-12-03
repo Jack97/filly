@@ -41,7 +41,9 @@ class ImageControllerTest extends WebTestCase
 
         $this->assertTrue($response->isOk());
 
-        $convertedImage = $this->app['image.manager']->make($response->getContent());
+        $imageManager = $this->app['image.manager'];
+
+        $convertedImage = $imageManager->make($response->getContent());
 
         $this->assertEquals($width, $convertedImage->width());
         $this->assertEquals($height, $convertedImage->height());
@@ -63,7 +65,9 @@ class ImageControllerTest extends WebTestCase
 
         $this->assertTrue($response->isOk());
 
-        $convertedImage = $this->app['image.manager']->make($response->getContent());
+        $imageManager = $this->app['image.manager'];
+
+        $convertedImage = $imageManager->make($response->getContent());
 
         $this->assertEquals($width, $convertedImage->width());
         $this->assertEquals($width, $convertedImage->height());
