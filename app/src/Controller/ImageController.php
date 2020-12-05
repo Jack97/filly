@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\ImageClient;
 use App\ImageManipulator;
-use App\Repository\ImageRepository;
-use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
 
 class ImageController

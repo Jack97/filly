@@ -11,7 +11,6 @@ RUN apt-get update \
         gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         gd \
-        pdo_mysql \
     && a2enmod rewrite \
     && apt-get -y autoremove \
     && apt-get clean \
