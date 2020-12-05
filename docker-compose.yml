@@ -13,6 +13,7 @@ services:
       - ./app/.env
     depends_on:
       - api
+      - minio
 
   api:
     build: ./api
@@ -24,13 +25,31 @@ services:
       - ./api/.env
     depends_on:
       - db
+      - minio
 
   db:
     image: mysql:5.7
     ports:
       - 33060:3306
+    volumes:
+      - db:/var/lib/mysql
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+  minio:
+    image: minio/minio
+    ports:
+      - 9000:9000
+    volumes:
+      - minio:/data
+    command: server /data
+    environment:
+      - MINIO_ACCESS_KEY=minio
+      - MINIO_SECRET_KEY=secretkey
+
+volumes:
+  db:
+  minio:
 
 # volumes:
 #   app:
