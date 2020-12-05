@@ -37,10 +37,9 @@ class ImageController
 
         $image = $this->imageClient->fetchRandom();
 
-        // Todo
-        // return $this->imageManipulator
-        //     ->getResizeResponse($image, $width, $height)
-        //     ->setPublic()
-        //     ->setMaxAge(86400); // 1 day
+        return $this->imageManipulator
+            ->getResizeResponse($image, $width, $height)
+            ->setPublic()
+            ->setMaxAge(86400); // 1 day
     }
 }

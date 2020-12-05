@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Model\Image;
+use App\Entity\Image;
 use Intervention\Image\ImageManager;
 use League\Flysystem\FilesystemReader;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,29 +22,29 @@ class ImageManipulator
 
     public function getResizeResponse(Image $image, int $width, int $height): Response
     {
-        $scale = min($image->getWidth() / $width, $image->getHeight() / $height);
+        $scale = min($image->width / $width, $image->height / $height);
 
         $cropWidth = max(1, (int) round($width * $scale));
         $cropHeight = max(1, (int) round($height * $scale));
 
-        $cropX = $image->getFocalPointX() - (int) ($cropWidth / 2);
+        $cropX = $image->focalPointX - (int) ($cropWidth / 2);
 
         if ($cropX < 0) {
             $cropX = 0;
-        } elseif ($cropX + $cropWidth > $image->getWidth()) {
-            $cropX = $image->getWidth() - $cropWidth;
+        } elseif ($cropX + $cropWidth > $image->width) {
+            $cropX = $image->width - $cropWidth;
         }
 
-        $cropY = $image->getFocalPointY() - (int) ($cropHeight / 2);
+        $cropY = $image->focalPointY - (int) ($cropHeight / 2);
 
         if ($cropY < 0) {
             $cropY = 0;
-        } elseif ($cropY + $cropHeight > $image->getHeight()) {
-            $cropY = $image->getHeight() - $cropHeight;
+        } elseif ($cropY + $cropHeight > $image->height) {
+            $cropY = $image->height - $cropHeight;
         }
 
         return $this->imageManager
-            ->make($this->filesystem->readStream($image->getFileName()))
+            ->make($this->filesystem->readStream($image->fileName))
             ->crop($cropWidth, $cropHeight, $cropX, $cropY)
             ->resize($width, $height)
             ->response('jpg');

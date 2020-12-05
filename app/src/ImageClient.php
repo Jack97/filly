@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Entity\Image;
 use Psr\Http\Client\ClientInterface;
 
 class ImageClient
@@ -13,9 +14,13 @@ class ImageClient
         $this->client = $client;
     }
 
-    public function fetchRandom(): array
+    public function fetchRandom(): Image
     {
-        return $this->request('GET', 'http://api/images/random')['data'];
+        // Todo: Make api endpoint configurable
+
+        $response = $this->request('GET', 'http://api/images/random');
+
+        return new Image($response['data']);
     }
 
     protected function request(string $method, string $uri = '', array $options = [])
