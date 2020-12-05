@@ -1,8 +1,8 @@
 <?php
 
-namespace Filly\Api;
+namespace Api;
 
-use Filly\Api\Controller\ImageController;
+use Api\Controller\ImageController;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
@@ -17,6 +17,7 @@ class Kernel extends BaseKernel
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Symfony\Bundle\MakerBundle\MakerBundle(),
         ];
     }
@@ -27,7 +28,7 @@ class Kernel extends BaseKernel
 
         $container
             ->services()
-            ->load('App\\', __DIR__ . '/*')
+            ->load('Api\\', __DIR__ . '/*')
             ->autowire()
             ->autoconfigure();
     }
@@ -35,8 +36,8 @@ class Kernel extends BaseKernel
     public function configureRoutes(RoutingConfigurator $routes)
     {
         $routes
-            ->add('images.index', '/images')
-            ->controller([ImageController::class, 'index'])
+            ->add('images.random', '/images/random')
+            ->controller([ImageController::class, 'random'])
             ->methods(['GET']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Kernel;
+use Api\Kernel;
 use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__ . '/../vendor/autoload.php';

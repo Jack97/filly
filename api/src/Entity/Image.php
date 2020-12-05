@@ -1,8 +1,8 @@
 <?php
 
-namespace Filly\Api\Entity;
+namespace Api\Entity;
 
-use Filly\Api\Repository\ImageRepository;
+use Api\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,7 +18,7 @@ class Image
     private int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private string $fileName;
 

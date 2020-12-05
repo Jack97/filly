@@ -1,8 +1,8 @@
 <?php
 
-namespace Filly\Api\Repository;
+namespace Api\Repository;
 
-use Filly\Api\Entity\Image;
+use Api\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +19,20 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
-    // /**
-    //  * @return Image[] Returns an array of Image objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function random(): ?Image
     {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $count = $this->count([]);
 
-    /*
-    public function findOneBySomeField($value): ?Image
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
+        if ($count < 1) {
+            return null;
+        }
+
+        $offset = rand(0, $count - 1);
+
+        return $this->createQueryBuilder('image')
+            ->setMaxResults(1)
+            ->setFirstResult($offset)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 }

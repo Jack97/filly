@@ -1,34 +1,25 @@
 <?php
 
-namespace Filly\Api\Controller;
+namespace Api\Controller;
 
+use Api\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ImageController extends AbstractController
 {
-    public function index()
+    public function random(): JsonResponse
     {
-        // Todo
-    }
+        $imageRepository = $this->getDoctrine()->getRepository(Image::class);
 
-    public function create(Request $request)
-    {
-        // Todo
-    }
+        $image = $imageRepository->random();
 
-    public function show(int $id)
-    {
-        // Todo
-    }
+        if (! $image) {
+            throw $this->createNotFoundException('Image not found.');
+        }
 
-    public function update(Request $request, int $id)
-    {
-        // Todo
-    }
-
-    public function delete(int $id)
-    {
-        // Todo
+        return new JsonResponse([
+            'data' => $image->toArray(),
+        ]);
     }
 }

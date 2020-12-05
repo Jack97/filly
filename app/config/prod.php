@@ -1,6 +1,7 @@
 <?php
 
 use Google\Cloud\Storage\StorageClient;
+use GuzzleHttp\Client;
 use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
 use Monolog\Logger;
 
@@ -14,6 +15,10 @@ $app['db.options'] = function () {
         'password' => $_ENV['DB_PASSWORD'],
         'charset' => $_ENV['DB_CHARSET'] ?? 'utf8mb4',
     ];
+};
+
+$app['http.client'] = function () {
+    return new Client();
 };
 
 $app['filesystem.adapter'] = function () {

@@ -2,8 +2,10 @@
 
 use App\Controller\HomeController;
 use App\Controller\ImageController;
+use App\ImageClient;
 use App\ImageManipulator;
 use App\Repository\Adapter\DoctrineImageRepository;
+use GuzzleHttp\Client;
 use Intervention\Image\ImageManager;
 use League\Flysystem\Filesystem;
 use Silex\Application;
@@ -27,8 +29,8 @@ $app['image.manager'] = function () use ($app) {
     ]);
 };
 
-$app['image.repository'] = function () use ($app) {
-    return new DoctrineImageRepository($app['db']);
+$app['image.client'] = function () use ($app) {
+    return new ImageClient($app['http.client']);
 };
 
 $app['image.manipulator'] = function () use ($app) {
@@ -43,7 +45,7 @@ $app['home.controller'] = function () use ($app) {
 
 $app['image.controller'] = function () use ($app) {
     return new ImageController(
-        $app['image.repository'], $app['image.manipulator']
+        $app['image.client'], $app['image.manipulator']
     );
 };
 

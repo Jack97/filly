@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\ImageClient;
 use App\ImageManipulator;
 use App\Repository\ImageRepository;
+use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
 
 class ImageController
@@ -11,14 +13,14 @@ class ImageController
     const MAX_WIDTH = 2000;
     const MAX_HEIGHT = 2000;
 
-    protected ImageRepository $imageRepository;
+    protected ImageClient $imageClient;
     protected ImageManipulator $imageManipulator;
 
     public function __construct(
-        ImageRepository $imageRepository,
+        ImageClient $imageClient,
         ImageManipulator $imageManipulator
     ) {
-        $this->imageRepository = $imageRepository;
+        $this->imageClient = $imageClient;
         $this->imageManipulator = $imageManipulator;
     }
 
@@ -35,11 +37,12 @@ class ImageController
             return new Response('Invalid image size.', 400);
         }
 
-        $image = $this->imageRepository->getRandom();
+        $image = $this->imageClient->fetchRandom();
 
-        return $this->imageManipulator
-            ->getResizeResponse($image, $width, $height)
-            ->setPublic()
-            ->setMaxAge(86400); // 1 day
+        // Todo
+        // return $this->imageManipulator
+        //     ->getResizeResponse($image, $width, $height)
+        //     ->setPublic()
+        //     ->setMaxAge(86400); // 1 day
     }
 }

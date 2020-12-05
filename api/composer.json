@@ -1,5 +1,6 @@
 {
     "require": {
+        "doctrine/doctrine-migrations-bundle": "^3.0",
         "symfony/config": "^5.2",
         "symfony/dependency-injection": "^5.2",
         "symfony/framework-bundle": "^5.2",
@@ -14,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Filly\\Api\\": "src/"
+            "Api\\": "src/"
         }
     },
     "config": {
