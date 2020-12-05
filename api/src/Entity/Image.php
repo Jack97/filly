@@ -23,22 +23,22 @@ class Image
     private string $fileName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"unsigned":true})
      */
     private int $width;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"unsigned":true})
      */
     private int $height;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"unsigned":true})
      */
     private int $focalPointX;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"unsigned":true})
      */
     private int $focalPointY;
 
