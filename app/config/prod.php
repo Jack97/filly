@@ -19,5 +19,5 @@ $app['filesystem.adapter'] = function () {
 
 $app['image.manager.driver'] = 'gd';
 
-$app['monolog.logfile'] = fn() => $_ENV['ERROR_LOG_PATH'] ?? 'php://stderr';
+$app['monolog.logfile'] = 'php://stderr';
 $app['monolog.level'] = Logger::ERROR;
