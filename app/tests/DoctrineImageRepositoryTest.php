@@ -2,7 +2,7 @@
 
 namespace App\Tests;
 
-use App\Model\Image;
+use App\Entity\Image;
 use App\Repository\Adapter\DoctrineImageRepository;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Application as Console;

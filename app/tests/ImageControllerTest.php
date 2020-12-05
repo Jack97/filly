@@ -3,7 +3,7 @@
 namespace App\Tests;
 
 use App\Controller\ImageController;
-use App\Model\Image;
+use App\Entity\Image;
 use App\Repository\ImageRepository;
 use Mockery;
 

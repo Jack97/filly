@@ -18,7 +18,7 @@ class ImageClient
     {
         // Todo: Make api endpoint configurable
 
-        $response = $this->request('GET', 'http://api/images/random');
+        $response = $this->request('GET', '/images/random');
 
         return new Image($response['data']);
     }

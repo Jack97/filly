@@ -4,8 +4,6 @@ use App\Controller\HomeController;
 use App\Controller\ImageController;
 use App\ImageClient;
 use App\ImageManipulator;
-use App\Repository\Adapter\DoctrineImageRepository;
-use GuzzleHttp\Client;
 use Intervention\Image\ImageManager;
 use League\Flysystem\Filesystem;
 use Silex\Application;

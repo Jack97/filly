@@ -3,7 +3,7 @@
 namespace App\Tests;
 
 use App\ImageManipulator;
-use App\Model\Image;
+use App\Entity\Image;
 
 class ImageManipulatorTest extends WebTestCase
 {

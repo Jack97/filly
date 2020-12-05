@@ -6,7 +6,9 @@ use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
 use Monolog\Logger;
 
 $app['http.client'] = function () {
-    return new Client();
+    return new Client([
+        'base_uri' => rtrim($_ENV['API_URL']),
+    ]);
 };
 
 $app['filesystem.adapter'] = function () {
